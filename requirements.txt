@@ -1,0 +1,175 @@
+================================================================================
+                    AI VOICE AGENT - REQUIREMENTS
+================================================================================
+
+This document lists everything needed to run the AI Voice Agent project.
+
+================================================================================
+1. SYSTEM REQUIREMENTS
+================================================================================
+
+Operating System:
+  - Windows 10/11, macOS, or Linux
+
+Node.js:
+  - Version: 18.0.0 or higher (recommended: 20.x LTS)
+  - Download: https://nodejs.org/
+
+npm:
+  - Version: 9.0.0 or higher (comes with Node.js)
+
+Browser (for client):
+  - Chrome 90+ (recommended)
+  - Firefox 90+
+  - Edge 90+
+  - Safari 15+
+  Note: Must support WebRTC and Web Speech API
+
+================================================================================
+2. API KEYS REQUIRED
+================================================================================
+
+You need to obtain API keys from the following services:
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Service      │ Purpose              │ Get API Key                          │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Deepgram     │ Speech-to-Text (STT) │ https://console.deepgram.com         │
+│ Groq         │ LLM (AI responses)   │ https://console.groq.com             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+================================================================================
+3. SERVER DEPENDENCIES (auto-installed via npm)
+================================================================================
+
+Production Dependencies:
+  @deepgram/sdk     ^3.5.0    - Speech-to-text transcription
+  cors              ^2.8.5    - Cross-origin resource sharing
+  dotenv            ^16.3.1   - Environment variable management
+  express           ^4.18.2   - HTTP server framework
+  groq-sdk          ^0.7.0    - Groq LLM API client
+  werift            ^0.22.2   - WebRTC implementation for Node.js
+  wrtc              ^0.4.7    - WebRTC native bindings
+  ws                ^8.14.2   - WebSocket server
+
+Development Dependencies:
+  @types/cors       ^2.8.17   - TypeScript types for cors
+  @types/express    ^4.17.21  - TypeScript types for express
+  @types/node       ^20.10.5  - TypeScript types for Node.js
+  @types/ws         ^8.5.10   - TypeScript types for ws
+  concurrently      ^8.2.2    - Run multiple commands concurrently
+  cross-env         ^10.1.0   - Cross-platform environment variables
+  tsx               ^4.7.0    - TypeScript execution
+  typescript        ^5.3.3    - TypeScript compiler
+
+================================================================================
+4. CLIENT DEPENDENCIES (auto-installed via npm)
+================================================================================
+
+Production Dependencies:
+  react             ^18.2.0   - React UI library
+  react-dom         ^18.2.0   - React DOM rendering
+  buffer            ^6.0.3    - Buffer polyfill for browser
+
+Development Dependencies:
+  @types/react      ^18.2.43  - TypeScript types for React
+  @types/react-dom  ^18.2.17  - TypeScript types for React DOM
+  @vitejs/plugin-react ^4.2.1 - Vite React plugin
+  typescript        ^5.3.3    - TypeScript compiler
+  vite              ^5.0.8    - Build tool and dev server
+
+================================================================================
+5. INSTALLATION STEPS
+================================================================================
+
+Step 1: Verify Node.js Installation
+  $ node --version    # Should show v18.x.x or higher
+  $ npm --version     # Should show 9.x.x or higher
+
+Step 2: Clone/Copy the Project
+  Copy the project folder to your desired location
+  (Do NOT copy node_modules folders - they will be installed fresh)
+
+Step 3: Install All Dependencies
+  $ cd voiceagent-Copy
+  $ npm run install:all
+
+Step 4: Configure Environment Variables
+  $ copy .env.example .env     # Windows
+  $ cp .env.example .env       # Linux/Mac
+  
+  Then edit .env and add your API keys:
+    DEEPGRAM_API_KEY=your_deepgram_api_key
+    GROQ_API_KEY=your_groq_api_key
+
+Step 5: Run the Project
+  $ npm run dev
+
+Step 6: Open in Browser
+  Navigate to: http://localhost:3000
+
+================================================================================
+6. PORTS USED
+================================================================================
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ Port    │ Service                │ URL                                     │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ 3000    │ Client (Vite dev)      │ http://localhost:3000                   │
+│ 3001    │ HTTP Server (Express)  │ http://localhost:3001                   │
+│ 3002    │ WebSocket Server       │ ws://localhost:3002/ws                  │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+Make sure these ports are not in use by other applications.
+
+================================================================================
+7. TROUBLESHOOTING
+================================================================================
+
+Problem: "ETIMEDOUT" or "Connection error" to Groq API
+Solution: The project is configured to use IPv4. If issues persist, check
+          your internet connection or try using a mobile hotspot.
+
+Problem: "EADDRINUSE" error
+Solution: Kill existing Node.js processes:
+          $ Get-Process -Name "node" | Stop-Process -Force  (Windows PowerShell)
+          $ killall node                                     (Linux/Mac)
+
+Problem: Microphone not working
+Solution: Allow microphone access in browser when prompted.
+          Check browser settings for microphone permissions.
+
+Problem: No voice output
+Solution: Check browser audio settings. The Web Speech API requires
+          the page to be interacted with before playing audio.
+
+================================================================================
+8. FILES TO TRANSFER (exclude node_modules)
+================================================================================
+
+voiceagent-Copy/
+├── .env.example          # Environment template
+├── .gitignore            # Git ignore rules
+├── package.json          # Server dependencies
+├── package-lock.json     # Dependency lock file
+├── tsconfig.json         # TypeScript config
+├── README.md             # Project documentation
+├── ARCHITECTURE_PRESENTATION.md
+├── PRESENTATION_GUIDE.md
+├── src/                  # Server source code
+│   ├── server/
+│   └── services/
+└── client/               # Client application
+    ├── package.json
+    ├── package-lock.json
+    ├── tsconfig.json
+    ├── vite.config.ts
+    ├── index.html
+    └── src/
+
+DO NOT COPY:
+  - node_modules/
+  - client/node_modules/
+  - .env (contains your API keys - recreate from .env.example)
+
+================================================================================

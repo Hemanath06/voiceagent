@@ -1,0 +1,45 @@
+{
+  "name": "ai-voice-agent",
+  "version": "1.0.0",
+  "description": "Real-time AI Voice Agent with WebRTC, Deepgram STT, Groq LLM, and Cartesia TTS",
+  "main": "dist/server/index.js",
+  "scripts": {
+    "build": "tsc && npm run build:client",
+    "build:client": "cd client && npm run build",
+    "dev": "cross-env NODE_OPTIONS=--dns-result-order=ipv4first concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "cross-env NODE_OPTIONS=--dns-result-order=ipv4first tsx watch src/server/index.ts",
+    "dev:client": "cd client && npm run dev",
+    "start": "cross-env NODE_OPTIONS=--dns-result-order=ipv4first node dist/server/index.js",
+    "install:all": "npm install && cd client && npm install"
+  },
+  "keywords": [
+    "webrtc",
+    "ai",
+    "voice",
+    "stt",
+    "tts",
+    "llm"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@deepgram/sdk": "^3.5.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "groq-sdk": "^0.7.0",
+    "werift": "^0.22.2",
+    "wrtc": "^0.4.7",
+    "ws": "^8.14.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.10.5",
+    "@types/ws": "^8.5.10",
+    "concurrently": "^8.2.2",
+    "cross-env": "^10.1.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}
